@@ -119,6 +119,24 @@ def main(argv):
 			print "   {%s, %s}," % (adc, int(t.temp(adc)))
 	print "};"
 	
+	print "float temptable2[NUMTEMPS] = {"
+	counter = 0
+        last_adc=0;
+	for adc in adcs:
+		counter = counter +1
+                if last_adc==0:
+                    inc = 0
+                else:
+                    inc = float(int(t.temp(adc))-int(t.temp(last_adc))) /(adc-last_adc)
+                last_adc = adc
+
+		if counter == len(adcs):
+			print "   %f" % (inc)
+		else:
+			print "   %f," % (inc)
+	print "};"
+
+	
 def usage():
     print __doc__
 
